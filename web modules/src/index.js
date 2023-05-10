@@ -27,6 +27,24 @@ app.post('/signup',async(req,res)=>{
     res.render("home") 
 });
 
+app.post('/login',async(req,res)=>{
+
+    try{
+        const check=await collection.findOne({name:req.body.name})   
+        if(check.password==req.body.password){     
+            res.render("home")
+        }
+        else{
+            
+            res.send("wrong password")
+        }
+    }
+    catch{
+        res.send("user not found")
+    }
+
+});
+
 app.listen(3000,()=>{
     console.log('Server is running at port 3000');
 });
